@@ -1,0 +1,38 @@
+<html>
+  <head>
+    <title>ContentsEater Options</title>
+    <style>
+    .section {
+      border-bottom: 1px solid;
+    }
+    pre {
+      background-color: white;
+    }
+    #message {
+      color: red;
+    }
+    </style>
+    <script src="options.js"></script>
+  </head>
+  <body>
+    <h1>ContentsEater Options</h1>
+    <div class="section">
+      <h2>Import configuration:</h2>
+      <div>
+        <input id="import" type="file">
+      </div>
+      <div id="message"></div>
+    </div>
+    <div class="section">
+      <h2>Configuration file example:</h2>
+      <pre>
+
+{
+  "www.google.co.jp": "#iplogo, #fsl",
+  "host": "css selector"
+}
+      </pre>
+    </div>
+  </body>
+</html>
+

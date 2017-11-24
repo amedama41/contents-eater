@@ -1,0 +1,27 @@
+{
+    "manifest_version": 2,
+    "name": "Contents Eater",
+    "version": "1.0",
+
+    "description": "Removes page contents automatically. The contents are specified by configuration file.",
+
+    "permissions": [
+        "storage"
+    ],
+
+    "content_scripts": [
+        {
+            "matches": ["<all_urls>"],
+            "js": ["src/content_scripts.js"],
+            "match_about_blank": true,
+            "all_frames": true,
+            "run_at": "document_start"
+        }
+    ],
+
+    "options_ui": {
+        "page": "src/options.html",
+        "browser_style": false,
+        "open_in_tab": false
+    }
+}
