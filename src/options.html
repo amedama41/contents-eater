@@ -7,6 +7,7 @@
     }
     pre {
       background-color: white;
+      white-space: pre-wrap;
     }
     #message {
       color: red;
@@ -28,8 +29,14 @@
       <pre>
 
 {
-  "www.google.co.jp": "#iplogo, #fsl",
-  "host": "css selector"
+  "www.google.co.jp": {
+    "loading": "#hplogo",
+    "complete": "#fsl, #fsr"
+  },
+  "host": {
+    "loading": "css selector /* Elements specified by this selector will be removed when page is loading. This remove is tried repeatedly until completing page loading. */",
+    "complete": "css selector /* Elements specified by this selector will be removed when page loading is completed. This remove is tried only once. */"
+  }
 }
       </pre>
     </div>

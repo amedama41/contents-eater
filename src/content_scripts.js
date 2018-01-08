@@ -6,28 +6,43 @@ function getConfig() {
         return Promise.resolve({ config: gConfig });
     }
     else {
-        return browser.storage.local.get({ config : {} });
+        return browser.storage.local.get({ config : {} }).then((data) => {
+            Object.keys(data.config).forEach((host) => {
+                if (typeof(data.config[host]) === "string") {
+                    data.config[host] = { complete: data.config[host] };
+                }
+            });;
+            return data;
+        });
     }
 }
 
-function eatContents() {
-    getConfig().then(({ config }) => {
+function eatContents(type) {
+    return getConfig().then(({ config }) => {
         const patterns = config[location.host];
-        if (!patterns) return;
-        document.querySelectorAll(patterns).forEach(function(elem) {
-            elem.parentNode.removeChild(elem);
+        if (!patterns || !patterns[type]) return false;
+        document.querySelectorAll(patterns[type]).forEach(function(elem) {
+            elem.remove();
         });
+        return true;
     });
 };
 
+function eatContentsRepeatedly() {
+    const isComplete = (document.readyState === "complete");
+    eatContents("loading").then((result) => {
+        if (result && !isComplete) {
+            setTimeout(eatContentsRepeatedly, 1000);
+        }
+    });
+}
+
 function init() {
-    const workAfterLoad = () => {
-        eatContents();
-        setTimeout(eatContents, 1500);
-    };
+    eatContentsRepeatedly();
+    const workAfterLoad = () => eatContents("complete");
     if (document.readyState === "loading") {
         window.addEventListener(
-            "DOMContentLoaded", workAfterLoad, { capture: true, once: true });
+            "load", workAfterLoad, { capture: true, once: true });
     }
     else {
         workAfterLoad();
