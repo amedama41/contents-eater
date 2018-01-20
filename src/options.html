@@ -31,11 +31,29 @@
 {
   "www.google.co.jp": {
     "loading": "#hplogo",
-    "complete": "#fsl, #fsr"
+    "complete": ["#fsl, #fsr", "li.ads-ad"]
+  },
+  "www.youtube.com": {
+    "interactive": "#masthead-ad"
   },
   "host": {
-    "loading": "css selector /* Elements specified by this selector will be removed when page is loading. This remove is tried repeatedly until completing page loading. */",
-    "complete": "css selector /* Elements specified by this selector will be removed when page loading is completed. This remove is tried only once. */"
+    "loading": [
+        "css selectors /* An array of strings, or a string */",
+        "Elements specified by this selectors will be removed when page is loading",
+        "This remove is tried repeatedly until completing page loading"
+    ],
+    "interactive": [
+        "css selectors /* An array of strings, or a string */",
+        "Elements specified by this selectors will be removed ",
+        "when page loading is completed, but sub-resources are still loading",
+        "This remove is tried only once"
+    ],
+    "complete": [
+        "css selectors /* An array of strings, or a string */",
+        "Elements specified by this selectors will be removed ",
+        "when page loading is completed",
+        "This remove is tried only once"
+    ]
   }
 }
       </pre>
