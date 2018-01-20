@@ -5,6 +5,13 @@
 
     "description": "Removes page contents automatically. The contents are specified by configuration file.",
 
+    "applications": {
+        "gecko": {
+            "id": "{20ba0c1f-7874-439c-b302-97d17dd48c4a}",
+            "strict_min_version": "48.0"
+        }
+    },
+
     "permissions": [
         "storage"
     ],
