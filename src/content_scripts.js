@@ -1,24 +1,24 @@
 'use strict';
 
-var gConfig = undefined;
-function getConfig() {
-    if (gConfig) {
-        return Promise.resolve({ config: gConfig });
+var gPatterns = undefined;
+function getPatterns(host) {
+    if (gPatterns) {
+        return Promise.resolve(gPatterns);
     }
     else {
         return browser.storage.local.get({ config : {} }).then((data) => {
-            const host = location.host;
-            if (data.config[host] && typeof(data.config[host]) === "string") {
-                data.config[host] = { complete: data.config[host] };
+            let patterns = data.config[host];
+            if (patterns && typeof(patterns) === "string") {
+                patterns = { complete: patterns };
             }
-            return data;
+            gPatterns = patterns;
+            return patterns;
         });
     }
 }
 
 function eatContents(type) {
-    return getConfig().then(({ config }) => {
-        const patterns = config[location.host];
+    return getPatterns(location.host).then((patterns) => {
         if (!patterns || !patterns[type]) return false;
         if (Array.isArray(patterns[type])) {
             patterns[type] = patterns[type].join(",");
