@@ -41,13 +41,20 @@ function eatContentsRepeatedly() {
 
 function init() {
     eatContentsRepeatedly();
-    const workAfterLoad = () => eatContents("complete");
+    const options = { capture: true, once: true };
     if (document.readyState === "loading") {
         window.addEventListener(
-            "load", workAfterLoad, { capture: true, once: true });
+            "DOMContentLoaded", () => eatContents("interactive"), options);
     }
     else {
-        workAfterLoad();
+        eatContents("interactive");
+    }
+    if (document.readyState !== "complete") {
+        window.addEventListener(
+            "load", () => eatContents("complete"), options);
+    }
+    else {
+        eatContents("complete");
     }
 }
 
