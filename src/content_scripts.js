@@ -7,11 +7,10 @@ function getConfig() {
     }
     else {
         return browser.storage.local.get({ config : {} }).then((data) => {
-            Object.keys(data.config).forEach((host) => {
-                if (typeof(data.config[host]) === "string") {
-                    data.config[host] = { complete: data.config[host] };
-                }
-            });;
+            const host = location.host;
+            if (data.config[host] && typeof(data.config[host]) === "string") {
+                data.config[host] = { complete: data.config[host] };
+            }
             return data;
         });
     }
