@@ -21,6 +21,9 @@ function eatContents(type) {
     return getConfig().then(({ config }) => {
         const patterns = config[location.host];
         if (!patterns || !patterns[type]) return false;
+        if (Array.isArray(patterns[type])) {
+            patterns[type] = patterns[type].join(",");
+        }
         document.querySelectorAll(patterns[type]).forEach(function(elem) {
             elem.remove();
         });
